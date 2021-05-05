@@ -20,7 +20,7 @@ def format_df (df_list):
     result = []
     for df in df_list:
 
-        df = df.iloc[:,2:9]
+        df = df.iloc[:,1:9]
         df.columns = df.iloc[0]
         df = df.iloc[1:,:]
         df.dropna(how='all', subset=["Originator"], inplace=True)
