@@ -2,3 +2,5 @@ new.xlsx
 *.docx
 *.zip
 /photos
+*.xlsx
+*.pdf
