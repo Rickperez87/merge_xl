@@ -30,14 +30,14 @@ def format_df (df_list):
 #func adds date column with dates based on file name    
 
 new_list = format_df(frames)    
-print(new_list[0])
+# print(new_list[0])
 
 result = pd.concat(new_list)
 
 excel_output_file = 'testing.xlsx'
 
-result.to_excel(excel_output_file)
+# result.to_excel(excel_output_file)
 
 #open file using bash
 
-subprocess.Popen([excel_output_file],shell=True)
+# subprocess.Popen([excel_output_file],shell=True)
