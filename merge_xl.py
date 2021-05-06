@@ -1,6 +1,7 @@
 import tabula
 import pandas as pd
 import numpy as np
+import subprocess
 
 # read_pdf will save the pdf table into Pandas Dataframe
 pdf_df = tabula.read_pdf("Package B SCI Worksheet -WHB - AA.pdf", pages='all')[0]
@@ -32,4 +33,10 @@ new_list = format_df(frames)
 
 result = pd.concat(new_list)
 
-result.to_excel('new.xlsx')
+excel_output_file = 'new.xlsx'
+
+result.to_excel(excel_output_file)
+
+#open file using bash
+
+subprocess.Popen([excel_output_file],shell=True)

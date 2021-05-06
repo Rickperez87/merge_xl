@@ -1,6 +1,7 @@
 import tabula
 import pandas as pd
 import numpy as np
+import subprocess
 
 # read_pdf will save the pdf table into Pandas Dataframe
 pdf_df1 = tabula.read_pdf("DCMP SLY Testing and Inspection Schedule 20210505.pdf", pages='all')[0]
@@ -27,4 +28,10 @@ print(new_list[0])
 
 result = pd.concat(new_list)
 
-result.to_excel('testing.xlsx')
+excel_output_file = 'testing.xlsx'
+
+result.to_excel(excel_output_file)
+
+#open file using bash
+
+subprocess.Popen([excel_output_file],shell=True)
