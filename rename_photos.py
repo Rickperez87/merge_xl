@@ -4,6 +4,7 @@ import numpy as np
 import subprocess
 import os
 import re
+import difflib
 
 cwd = os.getcwd()
 
@@ -14,8 +15,9 @@ filename_no_ext_space=[]
 excel=[]
 for filename in os.listdir(cwd):
     if filename.endswith('.jpg' or '.JPG*'):
-        filename_no_ext_space.append(re.sub('[^A-Za-z0-9]+', '',".".join(filename.split('.')[:-1]).strip().lower()))
         photos_files.append(filename)
+        filename = ".".join(filename.split('.')[:-1]).strip().lower()
+        filename_no_ext_space.append(re.sub('[^A-Za-z0-9]+', '',filename))
     elif filename.endswith('.xlsx'):
         excel.append(filename)
 # read_pdf will save the pdf table into Pandas Dataframe
@@ -47,8 +49,18 @@ for i, photo in enumerate(photos_no_space, 0):
     id_photo[photo]=id[i]
 
 for i, file in enumerate(filename_no_ext_space, 0):
-    val = id_photo.get(file)
-    print(val)
+    #logic here to match filename with closest match to id_photo
+    if file[0]=='d': continue
+    else:
+        result = difflib.get_close_matches(file,id_photo.keys(),1,.9)
+
+        if result:
+            print('file is:', file, 'result:',result)
+            val = id_photo.get(result[0])
+        else: 
+            val=False
+    
     if val:
+        print('id is:',val)
         os.rename(photos_files[i], f'{val}_{photos_files[i]}' )
         
