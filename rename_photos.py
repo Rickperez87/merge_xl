@@ -36,7 +36,6 @@ for file in excel:
 #create a dictionary with photo key and id values
 df = frames[0]
 
-df['Photos'] = df['Photos'].str.replace(r'\W','')
 photos = df['Photos'].values
 photos_no_space=[]
 for photo in photos:
@@ -45,8 +44,24 @@ for photo in photos:
 id = df['Item Number'].values
 
 id_photo={}
-for i, photo in enumerate(photos_no_space, 0):
-    id_photo[photo]=id[i]
+for i, photo in enumerate(photos, 0): #change photos no space eto photos and in dict change to remove spaces and special characters.
+    photo = str(photo)
+    if ',' in photo:
+        print (photo.split(','),i)
+        for individual_photo_file in photo.split(','):
+            id_photo[individual_photo_file]=id[i]
+    else:
+        id_photo[photo]=id[i]
+
+#loop through dictionary to remove any nonalpha chars
+
+temp={}
+for k,v in id_photo.items():
+    new_key = re.sub('[^A-Za-z0-9]+', '',k)
+    new_key.strip().lower()
+    temp[new_key]=v
+
+id_photo=temp
 
 for i, file in enumerate(filename_no_ext_space, 0):
     #logic here to match filename with closest match to id_photo
@@ -61,6 +76,7 @@ for i, file in enumerate(filename_no_ext_space, 0):
             val=False
     
     if val:
-        print('id is:',val)
-        os.rename(photos_files[i], f'{val}_{photos_files[i]}' )
+        # print('id is:',val)
+        # os.rename(photos_files[i], f'{val}_{photos_files[i]}' )
+        pass
         
