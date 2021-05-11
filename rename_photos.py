@@ -1,7 +1,5 @@
-import tabula
+
 import pandas as pd
-import numpy as np
-import subprocess
 import os
 import re
 import difflib
@@ -9,21 +7,39 @@ import difflib
 cwd = os.getcwd()
 
 
-#got file names from pictures. 
 photos_files=[]
 filename_no_ext_space=[]
 excel=[]
-for filename in os.listdir(cwd):
-    if filename.endswith('.jpg' or '.JPG*'):
-        photos_files.append(filename)
-        filename = ".".join(filename.split('.')[:-1]).strip().lower()
-        filename_no_ext_space.append(re.sub('[^A-Za-z0-9]+', '',filename))
-    elif filename.endswith('.xlsx'):
-        excel.append(filename)
-# read_pdf will save the pdf table into Pandas Dataframe
-# pdf_df = tabula.read_pdf("Package B SCI Worksheet -WHB - AA.pdf", pages='all')[0]
 
-# # load excel into Pandas Dataframe
+#create filename_list from folder holding .py file
+filenames_list = os.listdir(cwd)
+
+#get file names from pictures and excel.
+def init_jpg_filenames(filenames_list):
+    photos_files=[]
+    filename_no_ext_space=[]
+    for filename in filenames_list:
+        if filename.endswith('.jpg' or '.JPG*'):
+            photos_files.append(filename)
+            filename_no_ext_space.append(remove_spaces_special_chars(filename))
+    return [photos_files, filename_no_ext_space]
+
+def init_excel_filenames(filenames_list):
+    excel=[]
+    for filename in filenames_list:
+        if filename.endswith('.xlsx'):
+            excel.append(filename)
+    return excel
+
+def remove_spaces_special_chars(str):    
+    str_no_ext = ".".join(str.split('.')[:-1]).strip().lower() #remove extension ie. '.jpg'
+    return re.sub('[^A-Za-z0-9]+', '',str_no_ext)
+
+#run functions
+photos_files, filename_no_ext_space = init_jpg_filenames(filenames_list)
+excel = init_excel_filenames(filenames_list)
+
+# load excel into Pandas Dataframe
 frames=[]
 for file in excel:
     df=pd.read_excel(file)
@@ -47,7 +63,7 @@ id_photo={}
 for i, photo in enumerate(photos, 0): #change photos no space eto photos and in dict change to remove spaces and special characters.
     photo = str(photo)
     if ',' in photo:
-        print (photo.split(','),i)
+        
         for individual_photo_file in photo.split(','):
             id_photo[individual_photo_file]=id[i]
     else:
