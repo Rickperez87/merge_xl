@@ -62,7 +62,7 @@ def df_from_pdf(pdf):
     return frames
 
 #function formats df with correct column keys, size, and drops empty rows. returns list of formated frames
-def format_df (df_list):
+def format_df (df_list,col_names):
     result = []
     for df in df_list:
         df = df.iloc[:,1:9]
@@ -72,10 +72,10 @@ def format_df (df_list):
         result.append(df)
     return result
     
-
+col_names=['Item Number','Description','Area/segment or Building','Specific Location','Technical Requirements', 'Discipline', 'Originator','Photos']
 # print(init_excel_filenames(filenames_list), 'list....')
 
-new_list = format_df(df_from_xlsx(init_excel_filenames(filenames_list)))+ format_df(df_from_pdf(init_pdf_filenames(filenames_list)))
+new_list = format_df(df_from_xlsx(init_excel_filenames(filenames_list)),col_names)+ format_df(df_from_pdf(init_pdf_filenames(filenames_list)),col_names)
 
 
 result = pd.concat(new_list)
