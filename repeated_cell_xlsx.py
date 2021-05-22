@@ -3,20 +3,20 @@ import numpy as np
 import subprocess
 
 
-
+pattern = input('type string pattern to be repeated:')
+start = input('start number:')
+end = input('end number:')
 
 #code to create repeated text comma seperated
 def repeating_string(pattern,start,end):
     result=[]
-    for num in range(start, (end+1)):
+    for num in range(int(start), (int(end)+1)):
         result.append(f'{pattern}{num}')
     return ', '.join(result)
     
 # in future make prompt user for input instead of hard coding
-input = 'Train Wash-_TRUC_8-'
-start=1
-end=6
-result = {'data': [repeating_string(input, start, end)]}
+
+result = {'data': [repeating_string(pattern, start, end)]}
 
 # create a data frame
 df = pd.DataFrame(result)
