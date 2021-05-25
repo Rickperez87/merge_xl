@@ -5,6 +5,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.action_chains import ActionChains
+
+
 
 url = 'https://login.procore.com/'
 delay=3
@@ -21,24 +24,15 @@ procore_username = driver.find_element_by_id('session_email').send_keys(email_lo
 procore_password = driver.find_element_by_id('session_password').send_keys(pass_login)
 login_btn = driver.find_element_by_id('login-btn').click()
 
-# pkg_b_pulldown = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.Class, 'QHByb')))
-pkgb_link=driver.find_element_by_link_text('CRB0020_07 - Dulles Phase 2 WMATA Oversight - Package B').click()
-print(pkgb_link)
+testing_inspection_url = 'https://app.procore.com/45484/project/documents?folder_id=93300011'
 
-driver.find_element_by_id('tool-picker-target').click()
-# driver.find_element_by_id('tool-item-documents').click()
-driver.find_element_by_link_text('Documents').click()
-#not working yet below
-driver.find_element_by_link_text('1.0 Project Documents').click()
-driver.find_element_by_link_text('15 Quality Assurance & Control Records').click()
-driver.find_element_by_link_text('15.11 Daily Testing and Inspection Schedule').click()
-driver.find_element_by_link_text('Testing and inspections schedules master table').click()
+driver.get(testing_inspection_url)
 
-# search_bar.clear()
-# search_bar.send_keys("getting started with python")
-# search_bar.send_keys(Keys.RETURN)
+web_element = driver.find_element_by_xpath('/html/body/div[4]/div/div[1]/div/div[3]/div/div/table/tbody/div[1]/div/div/tr[5]')
+hover=ActionChains(driver).move_to_element(web_element)
+hover.perform()
+driver.find_element_by_xpath()
 
-print(driver.current_url)
 time.sleep(15)
 driver.close()
 driver.close()
