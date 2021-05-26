@@ -28,10 +28,10 @@ testing_inspection_url = 'https://app.procore.com/45484/project/documents?folder
 
 driver.get(testing_inspection_url)
 
-web_element = driver.find_element_by_xpath('/html/body/div[4]/div/div[1]/div/div[3]/div/div/table/tbody/div[1]/div/div/tr[5]')
-hover=ActionChains(driver).move_to_element(web_element)
-hover.perform()
-driver.find_element_by_xpath()
+master_sheet_url='https://office-365.procore.com/wopi/viewer/61689274?project_id=45484&company_id=2657&hint=678563&mode=edit'
+
+driver.get(master_sheet_url)
+driver.find_element_by_xpath('/html/body/div/div/div[3]/div[3]/button').click()
 
 time.sleep(15)
 driver.close()
