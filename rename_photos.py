@@ -19,7 +19,7 @@ def init_jpg_filenames(filenames_list):
     photos_files=[]
     filename_no_ext_space=[]
     for filename in filenames_list:
-        if filename.endswith('.jpg' or '.JPG*'):
+        if filename.endswith(('.jpg','.JPG')):
             photos_files.append(filename)
             filename_no_ext_space.append(remove_spaces_special_chars(filename))
     return [photos_files, filename_no_ext_space]
