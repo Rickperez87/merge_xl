@@ -53,7 +53,8 @@ def format_df (df_list,col_names):
         df = df.iloc[:,1:9]
         df.columns = col_names
         df = df.iloc[1:,:]
-        df.dropna(how='all', subset=df.columns[[6]], inplace=True)
+        #make sure that originator exists col 5
+        df.dropna(how='all', subset=df.columns[[5]], inplace=True)
         result.append(df)
     return result
     
