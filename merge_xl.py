@@ -1,16 +1,17 @@
 import tabula
 import pandas as pd
-import numpy as np
 import subprocess
 import os
-import re
 
+# current working directory
 cwd = os.getcwd()
 
-# photos_files=[]
+# variables
 filename_no_ext_space=[]
 excel=[]
 pdf=[]
+col_names=['Description','Area/segment or Building','Specific Location','Technical Requirements', 'Discipline', 'Originator','Remarks','Photos']
+excel_output_file_name = 'new.xlsx'
 
 #create filename_list from folder holding .py file
 filenames_list = os.listdir(cwd)
@@ -58,15 +59,9 @@ def format_df (df_list,col_names):
         result.append(df)
     return result
     
-col_names=['Description','Area/segment or Building','Specific Location','Technical Requirements', 'Discipline', 'Originator','Remarks','Photos']
-
 new_list = format_df(df_from_xlsx(init_excel_filenames(filenames_list)),col_names)+ format_df(df_from_pdf(init_pdf_filenames(filenames_list)),col_names)
 
-result = pd.concat(new_list)
-
-excel_output_file = 'new.xlsx'
-
-result.to_excel(excel_output_file)
+pd.concat(new_list).to_excel(excel_output_file_name)
 
 #open file using bash
-subprocess.Popen([excel_output_file],shell=True)
+subprocess.Popen([excel_output_file_name],shell=True)
