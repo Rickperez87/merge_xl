@@ -11,7 +11,7 @@ end = input('end number:')
 def repeating_string(pattern,start,end):
     result=[]
     for num in range(int(start), (int(end)+1)):
-        result.append(f'{pattern}{num}')
+        result.append(f'{pattern}{num}.jpg')
     return ', '.join(result)
     
 # in future make prompt user for input instead of hard coding
