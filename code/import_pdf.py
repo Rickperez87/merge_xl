@@ -14,7 +14,8 @@ for filename in os.listdir(cwd):
         try:
             date=f'{date[4]}{date[5]}/{date[6]}{date[7]}/{date[0]}{date[1]}{date[2]}{date[3]}'
         except IndexError:
-            continue
+            date = f'{date[4]}{date[5]}/0{date[6]}/{date[0]}{date[1]}{date[2]}{date[3]}'
+            print(date)
         df = tabula.read_pdf(filename,pages='all')[0]
         df.columns = df.iloc[2]
         df.insert(0,'date_name',date)
